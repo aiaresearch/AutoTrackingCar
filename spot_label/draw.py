@@ -27,6 +27,15 @@ width = 640
 image = np.full((height, width, 3), 255, dtype=np.uint8)
 # image = np.zeros((height, width, 3), dtype=np.uint8)
 # image[:, :] = (255,255,255)
+
+# 绘制直线
+left_line_x = random.randint(0.25*width, 0.75*width)
+left_line_len = random.randint(0.05*height, 0.75*height)
+start_point = (height, left_line_x, height-1)
+end_point = (random.randint(0, 0.75*height)
+color = (0, 0, 0)  # BGR 颜色
+thickness = 2
+cv2.line(image, start_point, end_point, color, thickness)
 # 显示图像
 cv2.imshow("Image", image)
 cv2.waitKey(0)
