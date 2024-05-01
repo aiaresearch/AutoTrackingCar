@@ -4,12 +4,6 @@ import os
 
 # 绘制直线轨道（直走情况中）
 def draw_track_straight(image, track_width, width, height):
-    # height = 480  # 这里不需要再次赋值，因为已经在函数参数中传递了
-    # width = 640
-    # image = np.full((height, width, 3), 255, dtype=np.uint8)  # 这里也不需要，因为图像已经在函数外部创建了
-
-    track_width = 40
-    
     left_line_x = np.random.randint(0.25*width, 0.75*width)
     right_line_x = left_line_x+track_width
     left_start_point = (left_line_x, height)
@@ -35,7 +29,7 @@ def draw_track_before_turn(image, track_width, width, height):
     global right_end_point
     right_end_point = (right_line_x, height-line_len-1)
 
-    global line_color  # 这里不需要，因为 line_color 已经是全局变量
+    global line_color  
     global line_thickness
     line_color = (0, 0, 0)  # BGR 颜色
     line_thickness = 2
@@ -87,14 +81,16 @@ def draw_turn_after_left_circle(image, track_width):
     upper_end_point = (0, upper_start_point[1])
     cv2.line(image, below_start_point, below_end_point, line_color, line_thickness)
     cv2.line(image, upper_start_point, upper_end_point, line_color, line_thickness)
+
 output_dir = os.path.join(os.path.dirname(__file__), 'images')
 height = 480
 width = 640
-track_width = 40
+
 
 # 开始绘制
 for i in range(100):
     image = np.full((height, width, 3), 255, dtype=np.uint8)  # 每次循环都创建一个新的图像
+    track_width = np.random.randint(30,70)
     image_status = np.random.randint(0,3)
     if image_status == 0:
         # 直走
@@ -112,5 +108,6 @@ for i in range(100):
         draw_turn_after_left_circle(image, track_width)
     
     # 保存图像
-    filename = os.path.join(output_dir, f"image_{i}.jpg")
+    filename = os.path.join(output_dir, f"image_{i+1}.jpg")
     cv2.imwrite(filename, image)
+    print(str(i) + ":" + str(track_width))
