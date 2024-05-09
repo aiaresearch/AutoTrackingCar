@@ -110,4 +110,4 @@ for i in range(100):
     # 保存图像
     filename = os.path.join(output_dir, f"image_{i+1}.jpg")
     cv2.imwrite(filename, image)
-    print(str(i) + ":" + str(track_width))
+    # print(str(i) + ":" + str(track_width))
